@@ -26,8 +26,6 @@ export const courseInputValidation = (
       !slug ||
       !description ||
       !thumbnail ||
-      !isFree ||
-      !isPublished ||
       !createdBy
     ) {
       return res.status(403).json({ msg: "Please fill all required fields." });

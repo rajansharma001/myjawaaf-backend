@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Category } from "./categorySchema.ts";
+import { CourseCategory } from "./categorySchema.ts";
 
 const courseSchema = new mongoose.Schema(
   {
@@ -24,7 +24,7 @@ const courseSchema = new mongoose.Schema(
     },
     categoryId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: Category,
+      ref: CourseCategory,
       required: true,
     },
     isFree: {

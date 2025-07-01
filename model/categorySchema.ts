@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const categorySchema = new mongoose.Schema(
+const CourseCategorySchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -21,5 +21,6 @@ const categorySchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Category =
-  mongoose.models.Category || mongoose.model("Category", categorySchema);
+export const CourseCategory =
+  mongoose.models.CourseCategory ||
+  mongoose.model("CourseCategory", CourseCategorySchema, "CourseCategory");

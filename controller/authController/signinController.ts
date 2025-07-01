@@ -5,7 +5,9 @@ import { User } from "../../model/userSchema.ts";
 export const signinController = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+    console.log("input from frontend: ", req.body);
     const existingUser = await User.findOne({ email });
+    console.log("existing user: ", existingUser);
 
     if (!existingUser) {
       return res
@@ -37,11 +39,14 @@ export const signinController = async (req: Request, res: Response) => {
     return res
       .cookie("token", token, {
         httpOnly: true,
-        secure: false,
+        secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
         maxAge: 60 * 10 * 1000,
       })
       .status(200)
       .json({ msg: "Signedin success", token });
-  } catch (error) {}
+  } catch (error) {
+    console.error("Signin error:", error);
+    res.status(500).json({ msg: "Server error. Please try again." });
+  }
 };

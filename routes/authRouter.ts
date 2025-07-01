@@ -18,7 +18,13 @@ router.get("/verify-password-email/:token", verifyPasswordEmail);
 router.post("/signin", signinValidation, signinController);
 router.patch("/update-password", changePasswordController); //for reseting password through email
 router.post("/logout", (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+    path: "/",
+  });
+  console.log("logged out");
   res.status(200).json({ msg: "User logged out" });
 });
 router.patch("/update-profile", verifyToken, profileUpdateController);
