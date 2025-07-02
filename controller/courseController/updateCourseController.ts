@@ -2,7 +2,9 @@ import type { Request, Response } from "express";
 import { Course } from "../../model/courseSchema.ts";
 export const updateCourseController = async (req: Request, res: Response) => {
   try {
-    const courseId = req.params._id;
+    const courseId = req.params.id;
+
+    console.log("courseId: ", courseId)
 
     const checkCourse = await Course.findOne({ _id: courseId });
     if (!checkCourse) {

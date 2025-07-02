@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { Course } from "../../model/courseSchema.ts";
 export const deleteCourseController = async (req: Request, res: Response) => {
-  const _id = req.params._id;
+  const _id = req.params.id;
   const createdBy = req.user._id;
 
   const course = await Course.findOne({ _id });
