@@ -6,16 +6,22 @@ export const createLessonController = async (req: Request, res: Response) => {
     const {
       title,
       slug,
-      videoUrl,
       duration,
       isPreview,
       description,
       courseId,
     } = req.body;
+
+
+console.log("req body: ",req.body)
+     const file = req.file;
+
+    console.log("is file receiving: ", req.file);
+    const videoPath =  req.file?.filename;
+
     if (
       !title ||
       !slug ||
-      !videoUrl ||
       !duration ||
       !description ||
       !courseId
@@ -26,12 +32,14 @@ export const createLessonController = async (req: Request, res: Response) => {
     const newLesson = {
       title,
       slug,
-      videoUrl,
+      videoUrl:videoPath,
       duration,
       isPreview,
       description,
       courseId: fetchCourse._id,
     };
+
+    console.log("new Lesson: ", newLesson)
     const createLesson = await Lesson.create(newLesson);
     return res.status(200).json({ msg: "lesson created." });
   } catch (error) {

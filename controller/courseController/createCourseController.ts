@@ -1,13 +1,13 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { Course } from "../../model/courseSchema.ts";
+import path from "path";
 export const createCourseController = async (req: Request, res: Response) => {
   try {
     const {
       title,
       slug,
       description,
-      thumbnail,
       categoryId,
       isFree,
       price,
@@ -16,6 +16,11 @@ export const createCourseController = async (req: Request, res: Response) => {
       language,
       isPublished,
     } = req.body;
+
+    const file = req.file;
+
+    console.log("is file receiving: ", req.file);
+    const thumbnailPath = file ? path.posix.join("uploads", file.filename) : "";
 
     // const token = req.cookies.token;
     // const decodeToken = await jwt.verify(token, process.env.TOKEN_SECRET);
@@ -27,7 +32,7 @@ export const createCourseController = async (req: Request, res: Response) => {
         title,
         slug,
         description,
-        thumbnail,
+        thumbnail: thumbnailPath,
         categoryId,
         isFree,
         price,

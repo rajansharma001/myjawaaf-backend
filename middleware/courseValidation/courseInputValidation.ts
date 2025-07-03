@@ -4,6 +4,8 @@ export const courseInputValidation = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("checking body: ", req.body);
+
   try {
     const {
       title,
@@ -21,13 +23,9 @@ export const courseInputValidation = (
       createdBy,
     } = req.body;
 
-    if (
-      !title ||
-      !slug ||
-      !description ||
-      !thumbnail ||
-      !createdBy
-    ) {
+    console.log("checking body: ", req.body);
+
+    if (!title || !slug || !description) {
       return res.status(403).json({ msg: "Please fill all required fields." });
     }
     next();
