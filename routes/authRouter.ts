@@ -3,7 +3,7 @@ import { signupController } from "../controller/authController/signupController.
 import { signupValidation } from "../middleware/userValidation/userSignupValidation.ts";
 import { signinValidation } from "../middleware/userValidation/userSigninValidation.ts";
 import { signinController } from "../controller/authController/signinController.ts";
-import { profileUpdateController } from "../controller/userController/profileUpdateController.ts";
+import { profileUpdateController, getUserController } from "../controller/userController/profileUpdateController.ts";
 import { verifyToken } from "../middleware/verifyToken.ts";
 import { verifyEmail } from "../middleware/email/verify-email.ts";
 import { changePasswordController } from "../controller/authController/changePasswordController.ts";
@@ -28,3 +28,8 @@ router.post("/logout", (req, res) => {
   res.status(200).json({ msg: "User logged out" });
 });
 router.patch("/update-profile", verifyToken, profileUpdateController);
+
+
+router.get("/get-user", verifyToken, getUserController);
+
+   

@@ -22,9 +22,7 @@ export const createCourseController = async (req: Request, res: Response) => {
     console.log("is file receiving: ", req.file);
     const thumbnailPath = file ? path.posix.join("uploads", file.filename) : "";
 
-    // const token = req.cookies.token;
-    // const decodeToken = await jwt.verify(token, process.env.TOKEN_SECRET);
-
+   
     const currentUser = req.user;
 
     if (currentUser.role === "admin" || currentUser.role === "teacher") {

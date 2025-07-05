@@ -26,3 +26,18 @@ export const profileUpdateController = async (req: Request, res: Response) => {
     return res.status(500).json({ msg: "Internal server error" });
   }
 };
+
+
+
+
+export const getUserController = async (req:Request, res:Response)=>{
+  try{
+    const getUser = await User.find()
+    if(!getUser) return res.status(404).json({msg:"User not found"})
+
+    return res.status(200).json({getUser})
+  }catch(error){
+    return res.status(500).json("Bad request for get user")
+    console.log("something went wrong :", error)
+  }
+}

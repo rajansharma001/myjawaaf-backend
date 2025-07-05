@@ -20,9 +20,17 @@ const enrollmentSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    receipt: {
+      type: String,
+      trim: true,
+    },
     paymentId: {
       type: String,
       default: null,
+    },
+    hasAccess: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
