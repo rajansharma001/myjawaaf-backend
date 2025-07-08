@@ -22,8 +22,8 @@ export const createCourseController = async (req: Request, res: Response) => {
     console.log("is file receiving: ", req.file);
     const thumbnailPath = file ? path.posix.join("uploads", file.filename) : "";
 
-   
     const currentUser = req.user;
+    console.log("current user: ", currentUser);
 
     if (currentUser.role === "admin" || currentUser.role === "teacher") {
       const newCourse = {

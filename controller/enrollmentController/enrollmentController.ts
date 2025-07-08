@@ -8,8 +8,9 @@ export const createEnrollmentController = async (
   req: Request,
   res: Response
 ) => {
+  console.log(req.body);
   try {
-    const { courseId, userId, isFree, price } = req.body;
+    const { courseId, userId } = req.body;
 
     const getCourse = await Course.findOne({ _id: courseId });
     if (!getCourse) {
@@ -29,7 +30,7 @@ export const createEnrollmentController = async (
       return res.status(404).json({ msg: "Please upload a receipt" });
     }
 
-    const getEnrollments = await Enrollment.findOne({ userId: userId });
+    const getEnrollments = await Enrollment.findOne({ userId, courseId });
     if (getEnrollments) {
       return res
         .status(403)
@@ -40,14 +41,15 @@ export const createEnrollmentController = async (
     const newEnrollment = {
       userId: userId,
       courseId: getCourse._id,
-      isFree: isFree,
-      price: price,
+      isFree: getCourse.isFree,
+      amountPaid: getCourse.price,
       receipt: uploadedReceipt,
-      hasAccess: true,
+      hasAccess: false,
       paymentId: generatePaymentId,
     };
 
     await Enrollment.create(newEnrollment);
+    await Course.updateOne({ _id: courseId }, { $inc: { studentCount: 1 } });
     return res.status(200).json({ msg: "Enrollment created." });
   } catch (error) {
     return res.status(500).json({ msg: "Bad request for Enrollment." });
@@ -73,11 +75,25 @@ export const deleteEnrolledController = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
     const getEnrolled = await Enrollment.findOne({ _id });
+
+    console.log("enroll coming: ", getEnrolled);
+
     if (!getEnrolled) {
       return res.status(404).json({ msg: "Enrollment not found" });
     }
 
-    const deleteEnroll = await Enrollment.deleteOne({ _id });
+    const getCourse = await Course.findOne({ _id: getEnrolled.courseId });
+    console.log("course coming: ", getCourse);
+
+    const deleteEnroll = await Enrollment.deleteOne({
+      _id,
+      courseId: getCourse._id,
+    });
+    await Course.updateOne(
+      { _id: getCourse._id },
+      { $inc: { studentCount: -1 } }
+    );
+
     return res.status(200).json({ msg: "Enroll deleted" });
   } catch (error) {
     console.log(error);
@@ -122,15 +138,25 @@ export const updateEnrolledByIdController = async (
     return res.status(404).json({ msg: "Enrollment not found" });
   }
 
+  const getCourse = await Course.findOne({ _id: courseId });
+  if (!getCourse) {
+    return res.status(404).json({ msg: "Coruse not found" });
+  }
+  const getUser = await User.findOne({ _id: userId });
+  if (!getUser) {
+    return res.status(404).json({ msg: "User not found" });
+  }
+
   const updateEnroll = await Enrollment.updateOne(
     { _id },
     {
-      courseId: courseId,
       userId: userId,
-      price: price,
-      isFree: isFree,
-      hasAccess: hasAccess,
+      courseId: getCourse._id,
+      isFree: getCourse.isFree,
+      amountPaid: getCourse.price,
       receipt: filePath || getEnroll.receipt,
+      hasAccess: hasAccess,
+      paymentId: getEnroll.paymentId,
     }
   );
 
