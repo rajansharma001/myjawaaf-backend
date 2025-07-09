@@ -3,11 +3,16 @@ import { signupController } from "../controller/authController/signupController.
 import { signupValidation } from "../middleware/userValidation/userSignupValidation.ts";
 import { signinValidation } from "../middleware/userValidation/userSigninValidation.ts";
 import { signinController } from "../controller/authController/signinController.ts";
-import { profileUpdateController, getUserController } from "../controller/userController/profileUpdateController.ts";
+import {
+  profileUpdateController,
+  getUserController,
+  profileImgUpdateController,
+} from "../controller/userController/profileUpdateController.ts";
 import { verifyToken } from "../middleware/verifyToken.ts";
 import { verifyEmail } from "../middleware/email/verify-email.ts";
 import { changePasswordController } from "../controller/authController/changePasswordController.ts";
 import { verifyPasswordEmail } from "../middleware/email/verifyPasswordEmail.ts";
+import { upload } from "../middleware/uploads/uploadMiddleware.ts";
 
 export const router = express.Router();
 
@@ -27,9 +32,17 @@ router.post("/logout", (req, res) => {
   console.log("logged out");
   res.status(200).json({ msg: "User logged out" });
 });
-router.patch("/update-profile", verifyToken, profileUpdateController);
-
+router.patch(
+  "/update-profile",
+  upload.single("profileImg"),
+  verifyToken,
+  profileUpdateController
+);
+router.patch(
+  "/update-profile-img",
+  upload.single("profileImg"),
+  verifyToken,
+  profileImgUpdateController
+);
 
 router.get("/get-user", verifyToken, getUserController);
-
-   

@@ -31,6 +31,7 @@ export const signinController = async (req: Request, res: Response) => {
         email: existingUser.email,
         phone: existingUser.phone,
         role: existingUser.role,
+        profileImg: existingUser.profileImg,
       },
       process.env.TOKEN_SECRET,
       { expiresIn: "1h" }

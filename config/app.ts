@@ -49,7 +49,7 @@ app.use(
 app.use(
   "/api/auth/enroll",
   verifyToken,
-  allowRole("admin", "teacher", "enroll"),
+  allowRole("admin", "student", "enroll"),
   enrollRoute
 );
 
