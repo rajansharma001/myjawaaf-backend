@@ -11,6 +11,7 @@ import {
 } from "../../controller/publicController/getPublicCourse.ts";
 import { verifyToken } from "../../middleware/verifyToken.ts";
 import { allowRole } from "../../middleware/allowRole.ts";
+import { getFilteredCourses } from "../../controller/publicController/getFilteredSearch.ts";
 
 export const publicRoute = express.Router();
 
@@ -28,3 +29,5 @@ publicRoute.get(
   allowRole("admin", "student"),
   getEnrollById
 );
+
+publicRoute.get("/courses", getFilteredCourses);
