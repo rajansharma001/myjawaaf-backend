@@ -18,5 +18,9 @@ courseRoute.post(
 );
 courseRoute.get("/get-course/", getCourseController);
 courseRoute.get("/get-course/:id", getCourseByIdController);
-courseRoute.patch("/update-course/:id", updateCourseController);
+courseRoute.patch(
+  "/update-course/:id",
+  upload.single("thumbnail"),
+  updateCourseController
+);
 courseRoute.delete("/delete-course/:id", deleteCourseController);

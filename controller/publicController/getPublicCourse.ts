@@ -10,6 +10,7 @@ export const getPublicCourse = async (req: Request, res: Response) => {
   return res.status(200).json({ getCourse });
 };
 
+// lesson by id
 export const getPublicLesson = async (req: Request, res: Response) => {
   const id = req.params.id;
   console.log(id);
@@ -17,6 +18,14 @@ export const getPublicLesson = async (req: Request, res: Response) => {
   if (!getLesson) return res.status(404).json({ msg: "Lesson not found" });
   console.log(getLesson);
   return res.status(200).json({ getLesson });
+};
+
+// all lesson
+export const getPublicLessons = async (req: Request, res: Response) => {
+  const getLessons = await Lesson.find();
+  if (!getLessons) return res.status(404).json({ msg: "Lessons not found" });
+  console.log(getLessons);
+  return res.status(200).json({ getLessons });
 };
 
 // fetch course by courseId
@@ -49,6 +58,18 @@ export const getPublicUser = async (req: Request, res: Response) => {
       return res.status(404).json({ msg: "User not found." });
     }
     return res.status(200).json({ getUser });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
+export const getPublicEnrolls = async (req: Request, res: Response) => {
+  try {
+    const getEnrolls = await Enrollment.find();
+    if (!getEnrolls) {
+      return res.status(404).json({ msg: "User not found." });
+    }
+    return res.status(200).json({ getEnrolls });
   } catch (error) {
     return res.status(500).json({ error });
   }

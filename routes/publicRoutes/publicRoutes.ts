@@ -4,8 +4,9 @@ import {
   getPublicCategory,
   getPublicCourse,
   getPublicCourseById,
-  getPublicCourseByUserId,
+  getPublicEnrolls,
   getPublicLesson,
+  getPublicLessons,
   getPublicUser,
   getPublicUserById,
 } from "../../controller/publicController/getPublicCourse.ts";
@@ -20,6 +21,9 @@ publicRoute.get("/course", getPublicCourse);
 publicRoute.get("/users", getPublicUser);
 publicRoute.get("/course/:id", getPublicCourseById); //course by courseid
 publicRoute.get("/userid", verifyToken, getPublicUserById);
+publicRoute.get("/lessons", getPublicLessons);
+
+publicRoute.get("/enrolls", getPublicEnrolls);
 
 publicRoute.get("/lesson/:id", getPublicLesson);
 

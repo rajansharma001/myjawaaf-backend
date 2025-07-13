@@ -99,7 +99,7 @@ export const deleteEnrolledController = async (req: Request, res: Response) => {
     console.log(error);
     return res
       .status(500)
-      .json({ msg: "Bad request for ferching enrollments." });
+      .json({ msg: "Bad request for deleting enrollments." });
   }
 };
 

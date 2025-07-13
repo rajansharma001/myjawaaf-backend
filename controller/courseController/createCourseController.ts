@@ -1,5 +1,4 @@
 import type { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 import { Course } from "../../model/courseSchema.ts";
 import path from "path";
 export const createCourseController = async (req: Request, res: Response) => {

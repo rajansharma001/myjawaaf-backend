@@ -1,17 +1,20 @@
 import type { Request, Response } from "express";
 import { Course } from "../../model/courseSchema.ts";
-
 export const getFilteredCourses = async (req: Request, res: Response) => {
   try {
     const { search, category } = req.query;
 
-    const query: any = {};
+    const filters: Record<string, any>[] = [];
+
     if (search) {
-      query.title = { $regex: search, $options: "i" };
+      filters.push({ title: { $regex: search, $options: "i" } });
     }
+
     if (category) {
-      query.categoryId = category;
+      filters.push({ categoryId: category });
     }
+
+    const query = filters.length > 0 ? { $or: filters } : {};
 
     const courses = await Course.find(query).populate("categoryId");
 
