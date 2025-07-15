@@ -10,7 +10,12 @@ export const verifyToken = async (
     if (!token) {
       return res.status(401).json({ msg: "No token, access denied" });
     }
-    const decoded = await jwt.verify(token, process.env.TOKEN_SECRET);
+
+    const secret = process.env.TOKEN_SECRET;
+    if (!secret) {
+      throw new Error("TOKEN_SECRET is not defined in environment variables");
+    }
+    const decoded = await jwt.verify(token, secret);
     if (!decoded) {
       return res.status(401).json({ msg: "Invalid Token!" });
     }
