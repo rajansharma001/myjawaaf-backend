@@ -14,7 +14,11 @@ export const verifyPasswordEmail = async (req: Request, res: Response) => {
     }
 
     const { token } = req.params;
-    const decode = jwt.verify(token, process.env.TOKEN_SECRET);
+    const secret = process.env.TOKEN_SECRET;
+    if (!secret) {
+      throw new Error("TOKEN_SECRET is not defined in environment variables");
+    }
+    const decode = jwt.verify(token, secret);
 
     const existingUser = await User.findOne({ email: decode.email });
     if (!existingUser) {

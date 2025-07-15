@@ -4,8 +4,12 @@ import { User } from "../../model/userSchema.ts";
 
 export const verifyEmail = async (req: Request, res: Response) => {
   try {
+    const secret = process.env.TOKEN_SECRET;
+    if (!secret) {
+      throw new Error("TOKEN_SECRET is not defined in environment variables");
+    }
     const { token } = req.params;
-    const decode = jwt.verify(token, process.env.TOKEN_SECRET);
+    const decode = jwt.verify(token, secret);
 
     const user = await User.findOne({ email: decode.email });
     if (!user) {

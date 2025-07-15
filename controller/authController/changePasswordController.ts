@@ -10,6 +10,10 @@ export const changePasswordController = async (req: Request, res: Response) => {
     if (!existingUser) {
       return res.status(403).json({ msg: "User not registered." });
     }
+    const secret = process.env.TOKEN_SECRET;
+    if (!secret) {
+      throw new Error("TOKEN_SECRET is not defined in environment variables");
+    }
 
     const token = jwt.sign(
       {
@@ -18,7 +22,7 @@ export const changePasswordController = async (req: Request, res: Response) => {
         phone: existingUser.phone,
         role: existingUser.role,
       },
-      process.env.TOKEN_SECRET,
+      secret,
       { expiresIn: "1h" }
     );
 
