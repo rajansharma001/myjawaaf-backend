@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "backend for Myjawaaf",
   "scripts": {
-    "start": "node config/app.ts",
+    "start": "ts-node config/app.ts",
     "dev": "nodemon config/app.ts"
   },
   "keywords": [],
@@ -24,7 +24,7 @@
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
-    "@types/node": "^24.0.3",
+    "@types/node": "^24.0.14",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
