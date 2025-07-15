@@ -3,6 +3,11 @@ import jwt from "jsonwebtoken";
 import { User } from "../../model/userSchema.ts";
 import bcrypt from "bcryptjs";
 
+interface MyJwtPayload extends jwt.JwtPayload {
+  email: string;
+  fullname: string;
+  phone?: string;
+}
 export const verifyPasswordEmail = async (req: Request, res: Response) => {
   try {
     const { newPassword } = req.body;
@@ -18,7 +23,7 @@ export const verifyPasswordEmail = async (req: Request, res: Response) => {
     if (!secret) {
       throw new Error("TOKEN_SECRET is not defined in environment variables");
     }
-    const decode = jwt.verify(token, secret);
+    const decode = jwt.verify(token, secret) as MyJwtPayload;
 
     const existingUser = await User.findOne({ email: decode.email });
     if (!existingUser) {

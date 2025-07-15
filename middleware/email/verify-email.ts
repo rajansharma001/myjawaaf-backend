@@ -1,7 +1,11 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../../model/userSchema.ts";
-
+interface MyJwtPayload extends jwt.JwtPayload {
+  email: string;
+  fullname: string;
+  phone?: string;
+}
 export const verifyEmail = async (req: Request, res: Response) => {
   try {
     const secret = process.env.TOKEN_SECRET;
@@ -9,7 +13,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
       throw new Error("TOKEN_SECRET is not defined in environment variables");
     }
     const { token } = req.params;
-    const decode = jwt.verify(token, secret);
+    const decode = jwt.verify(token, secret) as MyJwtPayload;
 
     const user = await User.findOne({ email: decode.email });
     if (!user) {
