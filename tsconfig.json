@@ -8,7 +8,7 @@
     "skipLibCheck": true,
     "allowImportingTsExtensions": true,
     "noEmit": true,
-    "typeRoots": ["./node_modules/@types", "./@types"]
+    "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules", "dist"]

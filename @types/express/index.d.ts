@@ -1,7 +1,9 @@
-import "express";
+import { User } from "../../model/userSchema"; // adjust path if needed
 
-declare module "express" {
-  export interface Request {
-    user?: any;
+declare global {
+  namespace Express {
+    interface Request {
+      user?: User;
+    }
   }
 }
