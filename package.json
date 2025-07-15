@@ -4,13 +4,12 @@
   "description": "backend for Myjawaaf",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node config/app.ts",
-    "dev": "nodemon config/app.ts"
+    "start": "node dist/config/app.js",
+    "dev": "nodemon src/config/app.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.2",
@@ -21,12 +20,12 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
     "multer": "^2.0.1",
-    "nodemailer": "^7.0.3",
-    "nodemon": "^3.1.10"
+    "nodemailer": "^7.0.3"
   },
   "devDependencies": {
     "@types/node": "^24.0.14",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "nodemon": "^3.1.10"
   }
 }
