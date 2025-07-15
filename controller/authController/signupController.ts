@@ -14,13 +14,18 @@ export const signupController = async (req: Request, res: Response) => {
       password: hashedPassword,
       phone,
     };
+    const secret = process.env.TOKEN_SECRET;
+    if (!secret) {
+      throw new Error("TOKEN_SECRET is not defined in environment variables");
+    }
+
     const token = jwt.sign(
       {
-        fullname: fullname,
-        email: email,
-        phone: phone,
+        fullname,
+        email,
+        phone,
       },
-      process.env.TOKEN_SECRET,
+      secret,
       { expiresIn: "1h" }
     );
 

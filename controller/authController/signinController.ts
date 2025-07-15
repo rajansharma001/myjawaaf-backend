@@ -24,6 +24,10 @@ export const signinController = async (req: Request, res: Response) => {
       return res.status(401).json({ msg: "Password did not match!" });
     }
 
+    const secret = process.env.TOKEN_SECRET;
+    if (!secret) {
+      throw new Error("TOKEN_SECRET is not defined in environment variables");
+    }
     const token = jwt.sign(
       {
         _id: existingUser._id,
@@ -33,7 +37,8 @@ export const signinController = async (req: Request, res: Response) => {
         role: existingUser.role,
         profileImg: existingUser.profileImg,
       },
-      process.env.TOKEN_SECRET,
+      secret,
+
       { expiresIn: "1h" }
     );
 

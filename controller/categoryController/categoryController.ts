@@ -1,7 +1,7 @@
-import type { Request, Respose } from "express";
+import type { Request, Response } from "express";
 import { CourseCategory } from "../../model/categorySchema.ts";
 
-export const createCategoryCotroller = async (req: Request, res: Respose) => {
+export const createCategoryCotroller = async (req: Request, res: Response) => {
   try {
     const { title, slug, description } = req.body;
     if (!title || !slug) {
@@ -23,7 +23,7 @@ export const createCategoryCotroller = async (req: Request, res: Respose) => {
   }
 };
 
-export const upadteCategoryCotroller = async (req: Request, res: Respose) => {
+export const upadteCategoryCotroller = async (req: Request, res: Response) => {
   try {
     const { title, slug, description } = req.body;
 
@@ -46,7 +46,7 @@ export const upadteCategoryCotroller = async (req: Request, res: Respose) => {
   }
 };
 
-export const deleteCategoryCotroller = async (req: Request, res: Respose) => {
+export const deleteCategoryCotroller = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
 
@@ -63,7 +63,7 @@ export const deleteCategoryCotroller = async (req: Request, res: Respose) => {
   }
 };
 
-export const getCategoryCotroller = async (req: Request, res: Respose) => {
+export const getCategoryCotroller = async (req: Request, res: Response) => {
   try {
     const fetchCategory = await CourseCategory.find();
     if (!fetchCategory) {
@@ -78,7 +78,7 @@ export const getCategoryCotroller = async (req: Request, res: Respose) => {
   }
 };
 
-export const getCategoryByIdCotroller = async (req: Request, res: Respose) => {
+export const getCategoryByIdCotroller = async (req: Request, res: Response) => {
   try {
     const _id = req.params.id;
     console.log("category id getting: ", _id);
