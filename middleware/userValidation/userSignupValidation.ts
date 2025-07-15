@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import { User } from "../../model/userSchema.ts";
+import { User } from "../../model/userSchema";
 export const signupValidation = async (
   req: Request,
   res: Response,

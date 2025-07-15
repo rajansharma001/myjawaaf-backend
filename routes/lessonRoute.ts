@@ -1,13 +1,13 @@
 import express from "express";
-import { createLessonController } from "../controller/lessonController/createLessonController.ts";
+import { createLessonController } from "../controller/lessonController/createLessonController";
 import {
   getLessonController,
   getLessonByIdController,
   getLessonByCourseIdController,
-} from "../controller/lessonController/getLessonController.ts";
-import { deleteLessonController } from "../controller/lessonController/deleteLessonController.ts";
-import { updateLessonController } from "../controller/lessonController/updateLessonController.ts";
-import { upload } from "../middleware/uploads/uploadMiddleware.ts";
+} from "../controller/lessonController/getLessonController";
+import { deleteLessonController } from "../controller/lessonController/deleteLessonController";
+import { updateLessonController } from "../controller/lessonController/updateLessonController";
+import { upload } from "../middleware/uploads/uploadMiddleware";
 
 export const lessonRoute = express.Router();
 
