@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/config/app.js",
-    "dev": "nodemon src/config/app.ts"
+    "dev": "nodemon config/app.ts"
   },
   "keywords": [],
   "author": "",
