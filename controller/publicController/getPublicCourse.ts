@@ -53,7 +53,7 @@ export const getPublicCategory = async (req: Request, res: Response) => {
 
 export const getPublicUser = async (req: Request, res: Response) => {
   try {
-    const getUser = await User.find();
+    const getUser = await User.find({}, { password: 0 });
     if (!getUser) {
       return res.status(404).json({ msg: "User not found." });
     }
