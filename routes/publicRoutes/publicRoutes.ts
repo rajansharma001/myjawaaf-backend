@@ -9,10 +9,10 @@ import {
   getPublicLessons,
   getPublicUser,
   getPublicUserById,
-} from "../../controller/publicController/getPublicCourse.ts";
-import { verifyToken } from "../../middleware/verifyToken.ts";
-import { allowRole } from "../../middleware/allowRole.ts";
-import { getFilteredCourses } from "../../controller/publicController/getFilteredSearch.ts";
+} from "../../controller/publicController/getPublicCourse";
+import { verifyToken } from "../../middleware/verifyToken";
+import { allowRole } from "../../middleware/allowRole";
+import { getFilteredCourses } from "../../controller/publicController/getFilteredSearch";
 
 export const publicRoute = express.Router();
 
