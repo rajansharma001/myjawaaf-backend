@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CourseCategory } from "./categorySchema.ts";
+import { CourseCategory } from "./categorySchema";
 
 const courseSchema = new mongoose.Schema(
   {

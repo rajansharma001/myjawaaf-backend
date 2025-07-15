@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { User } from "../../model/userSchema.ts";
+import { User } from "../../model/userSchema";
 interface MyJwtPayload extends jwt.JwtPayload {
   email: string;
   fullname: string;

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
-import { User } from "../../model/userSchema.ts";
+import { User } from "../../model/userSchema";
 export const signinController = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;

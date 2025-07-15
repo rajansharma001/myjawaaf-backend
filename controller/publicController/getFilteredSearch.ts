@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { Course } from "../../model/courseSchema.ts";
+import { Course } from "../../model/courseSchema";
 export const getFilteredCourses = async (req: Request, res: Response) => {
   try {
     const { search, category } = req.query;

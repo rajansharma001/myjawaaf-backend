@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { Course } from "../../model/courseSchema.ts";
+import { Course } from "../../model/courseSchema";
 export const deleteCourseController = async (req: Request, res: Response) => {
   const _id = req.params.id;
   const createdBy = req.user._id;

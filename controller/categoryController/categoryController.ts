@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { CourseCategory } from "../../model/categorySchema.ts";
+import { CourseCategory } from "../../model/categorySchema";
 
 export const createCategoryCotroller = async (req: Request, res: Response) => {
   try {

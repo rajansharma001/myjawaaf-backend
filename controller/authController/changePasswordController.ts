@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { User } from "../../model/userSchema.ts";
-import { sendEmailVerification } from "../../middleware/email/sendEmailVerification.ts";
+import { User } from "../../model/userSchema";
+import { sendEmailVerification } from "../../middleware/email/sendEmailVerification";
 
 export const changePasswordController = async (req: Request, res: Response) => {
   try {

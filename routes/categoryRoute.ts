@@ -4,8 +4,8 @@ import {
   deleteCategoryCotroller,
   getCategoryCotroller,
   upadteCategoryCotroller,
-  getCategoryByIdCotroller
-} from "../controller/categoryController/categoryController.ts";
+  getCategoryByIdCotroller,
+} from "../controller/categoryController/categoryController";
 
 export const categoryRoute = express.Router();
 

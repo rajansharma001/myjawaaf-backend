@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { Course } from "../../model/courseSchema.ts";
-import { Lesson } from "../../model/lessonSchema.ts";
+import { Course } from "../../model/courseSchema";
+import { Lesson } from "../../model/lessonSchema";
 export const deleteLessonController = async (req: Request, res: Response) => {
   try {
     const lessonId = req.params.id;

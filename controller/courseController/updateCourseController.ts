@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { Course } from "../../model/courseSchema.ts";
+import { Course } from "../../model/courseSchema";
 import path from "path";
 export const updateCourseController = async (req: Request, res: Response) => {
   try {

@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-import { Lesson } from "../../model/lessonSchema.ts";
-import { Course } from "../../model/courseSchema.ts";
+import { Lesson } from "../../model/lessonSchema";
+import { Course } from "../../model/courseSchema";
 export const createLessonController = async (req: Request, res: Response) => {
   try {
     const { title, slug, duration, isPreview, description, courseId } =

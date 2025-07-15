@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { User } from "../../model/userSchema.ts";
+import { User } from "../../model/userSchema";
 import path from "path";
 export const profileUpdateController = async (req: Request, res: Response) => {
   try {

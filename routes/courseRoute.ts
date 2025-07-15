@@ -1,13 +1,13 @@
 import express from "express";
-import { courseInputValidation } from "../middleware/courseValidation/courseInputValidation.ts";
-import { createCourseController } from "../controller/courseController/createCourseController.ts";
-import { deleteCourseController } from "../controller/courseController/deleteCourseController.ts";
-import { updateCourseController } from "../controller/courseController/updateCourseController.ts";
+import { courseInputValidation } from "../middleware/courseValidation/courseInputValidation";
+import { createCourseController } from "../controller/courseController/createCourseController";
+import { deleteCourseController } from "../controller/courseController/deleteCourseController";
+import { updateCourseController } from "../controller/courseController/updateCourseController";
 import {
   getCourseController,
   getCourseByIdController,
-} from "../controller/courseController/getCourseController.ts";
-import { upload } from "../middleware/uploads/uploadMiddleware.ts";
+} from "../controller/courseController/getCourseController";
+import { upload } from "../middleware/uploads/uploadMiddleware";
 export const courseRoute = express.Router();
 
 courseRoute.post(

@@ -1,9 +1,9 @@
 import type { Request, Response } from "express";
-import { Course } from "../../model/courseSchema.ts";
-import { Lesson } from "../../model/lessonSchema.ts";
-import { CourseCategory } from "../../model/categorySchema.ts";
-import { User } from "../../model/userSchema.ts";
-import { Enrollment } from "../../model/enrollSchema.ts";
+import { Course } from "../../model/courseSchema";
+import { Lesson } from "../../model/lessonSchema";
+import { CourseCategory } from "../../model/categorySchema";
+import { User } from "../../model/userSchema";
+import { Enrollment } from "../../model/enrollSchema";
 
 export const getPublicCourse = async (req: Request, res: Response) => {
   const getCourse = await Course.find({ isPublished: true });

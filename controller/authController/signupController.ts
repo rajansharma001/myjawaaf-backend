@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
-import { User } from "../../model/userSchema.ts";
-import { sendEmailVerification } from "../../middleware/email/sendEmailVerification.ts";
+import { User } from "../../model/userSchema";
+import { sendEmailVerification } from "../../middleware/email/sendEmailVerification";
 export const signupController = async (req: Request, res: Response) => {
   try {
     const { fullname, email, password, phone } = req.body;

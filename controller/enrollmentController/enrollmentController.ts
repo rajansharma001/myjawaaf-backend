@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { Course } from "../../model/courseSchema.ts";
-import { Enrollment } from "../../model/enrollSchema.ts";
-import { User } from "../../model/userSchema.ts";
+import { Course } from "../../model/courseSchema";
+import { Enrollment } from "../../model/enrollSchema";
+import { User } from "../../model/userSchema";
 import path from "path";
 
 export const createEnrollmentController = async (

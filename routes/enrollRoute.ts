@@ -5,8 +5,8 @@ import {
   getEnrolledByIdController,
   getEnrolledController,
   updateEnrolledByIdController,
-} from "../controller/enrollmentController/enrollmentController.ts";
-import { upload } from "../middleware/uploads/uploadMiddleware.ts";
+} from "../controller/enrollmentController/enrollmentController";
+import { upload } from "../middleware/uploads/uploadMiddleware";
 
 export const enrollRoute = express.Router();
 

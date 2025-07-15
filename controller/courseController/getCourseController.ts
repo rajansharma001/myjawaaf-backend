@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { Course } from "../../model/courseSchema.ts";
+import { Course } from "../../model/courseSchema";
 
 export const getCourseController = async (req: Request, res: Response) => {
   try {
@@ -16,18 +16,16 @@ export const getCourseController = async (req: Request, res: Response) => {
   }
 };
 
-
-
 export const getCourseByIdController = async (req: Request, res: Response) => {
   try {
-    const courseId = req.params.id
+    const courseId = req.params.id;
 
     if (!courseId) {
       return res.status(404).json({ msg: "Course not found." });
     }
-    const getCourseById = await Course.findOne({ _id:courseId });
+    const getCourseById = await Course.findOne({ _id: courseId });
 
-    return res.status(200).json({getCourseById});
+    return res.status(200).json({ getCourseById });
   } catch (error) {
     return res.status(500).json({ msg: "Bad request for course fetch" });
   }
