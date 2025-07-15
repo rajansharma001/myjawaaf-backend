@@ -16,6 +16,7 @@ import cors from "cors";
 const app = express();
 dotenv.config();
 dbConnect();
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -23,7 +24,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     credentials: true,
   })
 );
@@ -60,7 +61,11 @@ app.get("/api/auth/session-user", (req: Request, res: Response) => {
   if (!token) return res.status(401).json({ msg: "No token found" });
 
   try {
-    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    const secret = process.env.TOKEN_SECRET;
+    if (!secret) {
+      throw new Error("TOKEN_SECRET is not defined in environment variables");
+    }
+    const decoded = jwt.verify(token, secret);
     res.status(200).json({ user: decoded });
   } catch (err) {
     res.status(403).json({ msg: "Invalid or expired token" });
@@ -73,6 +78,6 @@ app.use("/api", publicRoute);
 // use verifytoken when you need to protect any route. Loggedin users can only get the content
 // use allowroles when you need to restrict any uer or to apply role base aacess
 
-app.listen(4000, () => {
-  console.log(`Server running at PORT: 4000 `);
+app.listen(PORT, () => {
+  console.log(`Server running at PORT: ${PORT} `);
 });
