@@ -24,9 +24,15 @@ router.post("/signin", signinValidation, signinController);
 router.patch("/update-password", changePasswordController); //for reseting password through email
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
+    // httpOnly: true,    // for local
+    // secure: process.env.NODE_ENV === "production",  // for local
+    // sameSite: "lax",  // for local
+    // path: "/",  // for local
+
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: true, // for production
+    sameSite: "none", // for production
+    expires: new Date(0), // Expire immediately
     path: "/",
   });
   console.log("logged out");
