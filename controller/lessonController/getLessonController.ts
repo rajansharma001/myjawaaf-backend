@@ -9,7 +9,8 @@ export const getLessonController = async (req: Request, res: Response) => {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    const getCourse = await Course.find({ createdBy: _id });
+    // const getCourse = await Course.find({ createdBy: _id });  // get specific logged in user courses
+    const getCourse = await Course.find(); // get all lesson
     const courseId = getCourse.map((course) => course._id);
 
     const getLesson = await Lesson.find({ courseId: { $in: courseId } });

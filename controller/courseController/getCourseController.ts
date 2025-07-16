@@ -8,7 +8,8 @@ export const getCourseController = async (req: Request, res: Response) => {
     if (!userId) {
       return res.status(404).json({ msg: "User not found." });
     }
-    const getCourse = await Course.find({ createdBy: userId });
+    // const getCourse = await Course.find({ createdBy: userId }); // get specific logged in user courses
+    const getCourse = await Course.find(); // get all courses
 
     return res.status(200).json({ msg: " Course fetched success.", getCourse });
   } catch (error) {
