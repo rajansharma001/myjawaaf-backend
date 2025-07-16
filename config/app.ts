@@ -24,8 +24,8 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(
   cors({
-    // origin: process.env.CLIENT_URL || "https://myjawaaf-frontend.vercel.app/",
-    origin: process.env.CLIENT_URL || "http://localhost:3000/",
+    origin: "https://myjawaaf-frontend.vercel.app",
+    // origin: process.env.CLIENT_URL || "http://localhost:3000/",
     credentials: true,
   })
 );
