@@ -9,7 +9,6 @@ const storage = multer.diskStorage({
   },
 });
 
-
 // Validate file type and size (max 5MB)
 const fileFilter = (req: any, file: Express.Multer.File, cb: any) => {
   const allowedTypes = ["image/jpeg", "image/png", "video/mp4"];
@@ -19,4 +18,8 @@ const fileFilter = (req: any, file: Express.Multer.File, cb: any) => {
   cb(null, true);
 };
 
-export const upload = multer({ storage, fileFilter, limits:{ fileSize: 5 * 1024 * 1024 } }); //5mb
+export const upload = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 5 * 1024 * 1024 },
+}); //5mb
