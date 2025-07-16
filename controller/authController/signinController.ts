@@ -45,8 +45,10 @@ export const signinController = async (req: Request, res: Response) => {
     return res
       .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: true, // for hosted
+        sameSite: "none", //for hosted
+        // secure: process.env.NODE_ENV === "production", //for local
+        // sameSite: "lax", //for local
         maxAge: 60 * 10 * 1000,
       })
       .status(200)
