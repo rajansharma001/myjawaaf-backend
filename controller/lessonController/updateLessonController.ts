@@ -9,7 +9,8 @@ export const updateLessonController = async (req: Request, res: Response) => {
     const lessonId = req.params.id;
     const userId = req.user._id;
 
-    const videoPath = req.file?.filename;
+    const file = req.file;
+    const videoPath = file?.path || "";
 
     const updateLesson = {
       title,

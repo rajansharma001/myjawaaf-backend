@@ -1,25 +1,32 @@
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 import multer from "multer";
+import dotenv from "dotenv";
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+dotenv.config();
+
+// Cloudinary Config
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Multer Storage with Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => {
+    const isImage = file.mimetype.startsWith("image");
+
+    return {
+      folder: "myjawaaf_uploads",
+      resource_type: "auto", // Automatically detect video or image
+      allowed_formats: ["jpg", "png", "jpeg", "mp4"],
+      ...(isImage && {
+        transformation: [{ width: 500, height: 500, crop: "limit" }],
+      }),
+    };
   },
 });
 
-// Validate file type and size (max 5MB)
-const fileFilter = (req: any, file: Express.Multer.File, cb: any) => {
-  const allowedTypes = ["image/jpeg", "image/png", "video/mp4"];
-  if (!allowedTypes.includes(file.mimetype)) {
-    return cb(new Error("Only JPEG and PNG files are allowed."), false);
-  }
-  cb(null, true);
-};
-
-export const upload = multer({
-  storage,
-  fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 },
-}); //5mb
+export const upload = multer({ storage });

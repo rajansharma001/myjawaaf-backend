@@ -6,7 +6,9 @@ export const createLessonController = async (req: Request, res: Response) => {
     const { title, slug, duration, isPreview, description, courseId } =
       req.body;
 
-    const videoPath = req.file?.filename;
+    const file = req.file;
+
+    const videoPath = file?.path || "";
 
     if (!title || !slug || !duration || !description || !courseId) {
       return res.status(404).json({ msg: "Please fill all required fields" });
@@ -24,6 +26,7 @@ export const createLessonController = async (req: Request, res: Response) => {
 
     console.log("new Lesson: ", newLesson);
     const createLesson = await Lesson.create(newLesson);
+    console.log(createLesson);
     return res.status(200).json({ msg: "lesson created." });
   } catch (error) {
     return res

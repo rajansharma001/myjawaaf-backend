@@ -43,7 +43,7 @@ export const profileImgUpdateController = async (
     }
 
     const file = req.file;
-    const profileImg = file ? path.posix.join("uploads", file.filename) : "";
+    const profileImg = file?.path || "";
 
     console.log(file);
     console.log(profileImg);

@@ -8,7 +8,7 @@ export const deleteLessonController = async (req: Request, res: Response) => {
     if (!_id) {
       return res.status(404).json({ msg: "User not found" });
     }
-    const getCourse = await Course.find({ createdBy: _id });
+    const getCourse = await Course.find({});
     const courseId = getCourse.map((course) => course._id);
 
     const deleteLesson = await Lesson.deleteOne({ _id: lessonId, courseId });

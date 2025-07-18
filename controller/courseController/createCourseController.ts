@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { Course } from "../../model/courseSchema";
-import path from "path";
 export const createCourseController = async (req: Request, res: Response) => {
+  console.log("req body not getting in backend: ", req.body);
   try {
     const {
       title,
@@ -17,12 +17,9 @@ export const createCourseController = async (req: Request, res: Response) => {
     } = req.body;
 
     const file = req.file;
-
-    console.log("is file receiving: ", req.file);
-    const thumbnailPath = file ? path.posix.join("uploads", file.filename) : "";
+    const thumbnailPath = file?.path || "";
 
     const currentUser = req.user;
-    console.log("current user: ", currentUser);
 
     if (currentUser.role === "admin" || currentUser.role === "teacher") {
       const newCourse = {
@@ -39,7 +36,13 @@ export const createCourseController = async (req: Request, res: Response) => {
         isPublished,
         createdBy: currentUser._id,
       };
+      console.log("thumbnail req file: ", req.file);
+
+      console.log("course from frontend: ", newCourse);
+
       const course = await Course.create(newCourse);
+      console.log("course created: ", course);
+
       return res.status(201).json({ msg: "Course Created Success!", course });
     } else {
       return res
@@ -47,8 +50,10 @@ export const createCourseController = async (req: Request, res: Response) => {
         .json({ msg: "You are not allowed to manage this task." });
     }
   } catch (error) {
-    return res
-      .status(500)
-      .json({ msg: "Bad Request while creating a new course!" });
+    console.error("Error in createCourseController:", error); // <== add this line
+    return res.status(500).json({
+      msg: "Bad Request while creating a new course!",
+      error: error instanceof Error ? error.message : error,
+    });
   }
 };

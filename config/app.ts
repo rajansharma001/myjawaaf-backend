@@ -20,6 +20,8 @@ const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true })); // for urlencoded form data
+
 app.use("/uploads", express.static("uploads"));
 
 app.use(

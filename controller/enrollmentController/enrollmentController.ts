@@ -22,9 +22,7 @@ export const createEnrollmentController = async (
     }
 
     const file = req.file;
-    const uploadedReceipt = file
-      ? path.posix.join("uploads", file.filename)
-      : "";
+    const uploadedReceipt = file?.path || "";
 
     if (!file) {
       return res.status(404).json({ msg: "Please upload a receipt" });
@@ -131,7 +129,7 @@ export const updateEnrolledByIdController = async (
   console.log(req.body);
   const { userId, courseId, price, isFree, hasAccess } = req.body;
   const file = req.file;
-  const filePath = file ? path.posix.join("uploads", file.filename) : "";
+  const filePath = file?.path || "";
 
   const getEnroll = await Enrollment.findOne({ _id });
   if (!getEnroll) {

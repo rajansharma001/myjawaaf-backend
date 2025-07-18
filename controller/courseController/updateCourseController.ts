@@ -5,8 +5,6 @@ export const updateCourseController = async (req: Request, res: Response) => {
   try {
     const courseId = req.params.id;
 
-    console.log("courseId: ", courseId);
-
     const checkCourse = await Course.findOne({ _id: courseId });
     if (!checkCourse) {
       return res.status(404).json({ msg: "Course not found." });
@@ -27,9 +25,7 @@ export const updateCourseController = async (req: Request, res: Response) => {
 
     const user = req.user;
     const file = req.file;
-
-    console.log("is file receiving: ", req.file);
-    const thumbnailPath = file ? path.posix.join("uploads", file.filename) : "";
+    const thumbnailPath = file?.path || "";
 
     await Course.updateOne(
       { _id: courseId, createdBy: user._id },
