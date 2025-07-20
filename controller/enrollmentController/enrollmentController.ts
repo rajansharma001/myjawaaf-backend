@@ -22,11 +22,12 @@ export const createEnrollmentController = async (
     }
 
     const file = req.file;
-    const uploadedReceipt = file?.path || "";
-
-    if (!file) {
-      return res.status(404).json({ msg: "Please upload a receipt" });
+    if (!getCourse.isFree) {
+      if (!file) {
+        return res.status(404).json({ msg: "Please upload a receipt" });
+      }
     }
+    const uploadedReceipt = file?.path || "";
 
     const getEnrollments = await Enrollment.findOne({ userId, courseId });
     if (getEnrollments) {

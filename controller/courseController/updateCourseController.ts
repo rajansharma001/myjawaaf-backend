@@ -27,13 +27,13 @@ export const updateCourseController = async (req: Request, res: Response) => {
     const file = req.file;
     const thumbnailPath = file?.path || "";
 
-    await Course.updateOne(
+    const courseUpdate = await Course.updateOne(
       { _id: courseId, createdBy: user._id },
       {
         title,
         slug,
         description,
-        thumbnail: thumbnailPath,
+        thumbnail: thumbnailPath || "",
         categoryId,
         isFree,
         price,
@@ -43,6 +43,10 @@ export const updateCourseController = async (req: Request, res: Response) => {
         isPublished,
       }
     );
+    console.log(courseUpdate);
+    if (!courseUpdate) {
+      return res.status(403).json({ msg: "Update failed" });
+    }
 
     return res.status(200).json({ msg: "Course updated success" });
   } catch (error) {
