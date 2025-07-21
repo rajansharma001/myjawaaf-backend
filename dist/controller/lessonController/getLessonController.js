@@ -1,17 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLessonByCourseIdController = exports.getLessonByIdController = exports.getLessonController = void 0;
-const lessonSchema_ts_1 = require("../../model/lessonSchema.ts");
-const courseSchema_ts_1 = require("../../model/courseSchema.ts");
+const lessonSchema_1 = require("../../model/lessonSchema");
+const courseSchema_1 = require("../../model/courseSchema");
 const getLessonController = async (req, res) => {
     try {
         const _id = req.user._id;
         if (!_id) {
             return res.status(404).json({ msg: "User not found" });
         }
-        const getCourse = await courseSchema_ts_1.Course.find({ createdBy: _id });
+        // const getCourse = await Course.find({ createdBy: _id });  // get specific logged in user courses
+        const getCourse = await courseSchema_1.Course.find(); // get all lesson
         const courseId = getCourse.map((course) => course._id);
-        const getLesson = await lessonSchema_ts_1.Lesson.find({ courseId: { $in: courseId } });
+        const getLesson = await lessonSchema_1.Lesson.find({ courseId: { $in: courseId } });
         if (!getLesson) {
             return res.status(404).json({ msg: "lesson not found" });
         }
@@ -28,11 +29,13 @@ const getLessonByIdController = async (req, res) => {
         if (!lessonId) {
             return res.status(404).json({ msg: "lesson not found" });
         }
-        const getLessonById = await lessonSchema_ts_1.Lesson.findOne({ _id: lessonId });
+        const getLessonById = await lessonSchema_1.Lesson.findOne({ _id: lessonId });
         if (!getLessonById) {
             return res.status(404).json({ msg: "lesson not found" });
         }
-        return res.status(200).json({ msg: "Course fetched for user", getLessonById });
+        return res
+            .status(200)
+            .json({ msg: "Course fetched for user", getLessonById });
     }
     catch (error) {
         return res.status(200).json({ msg: "Bad request. Course fetched", error });
@@ -45,11 +48,13 @@ const getLessonByCourseIdController = async (req, res) => {
         if (!courseId) {
             return res.status(404).json({ msg: "Course not found" });
         }
-        const getLessonByCourseId = await lessonSchema_ts_1.Lesson.find({ courseId: courseId });
+        const getLessonByCourseId = await lessonSchema_1.Lesson.find({ courseId: courseId });
         if (!getLessonByCourseId) {
             return res.status(404).json({ msg: "lesson not found" });
         }
-        return res.status(200).json({ msg: "Course fetched for user", getLessonByCourseId });
+        return res
+            .status(200)
+            .json({ msg: "Course fetched for user", getLessonByCourseId });
     }
     catch (error) {
         return res.status(200).json({ msg: "Bad request. Course fetched", error });

@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyEmail = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const userSchema_ts_1 = require("../../model/userSchema.ts");
+const userSchema_1 = require("../../model/userSchema");
 const verifyEmail = async (req, res) => {
     try {
         const secret = process.env.TOKEN_SECRET;
@@ -14,7 +14,7 @@ const verifyEmail = async (req, res) => {
         }
         const { token } = req.params;
         const decode = jsonwebtoken_1.default.verify(token, secret);
-        const user = await userSchema_ts_1.User.findOne({ email: decode.email });
+        const user = await userSchema_1.User.findOne({ email: decode.email });
         if (!user) {
             return res.status(404).json({ msg: "User not found" });
         }

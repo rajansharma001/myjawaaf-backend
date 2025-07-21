@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Course = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-const categorySchema_ts_1 = require("./categorySchema.ts");
+const categorySchema_1 = require("./categorySchema");
 const courseSchema = new mongoose_1.default.Schema({
     title: {
         type: String,
@@ -28,7 +28,7 @@ const courseSchema = new mongoose_1.default.Schema({
     },
     categoryId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: categorySchema_ts_1.CourseCategory,
+        ref: categorySchema_1.CourseCategory,
         required: true,
     },
     isFree: {

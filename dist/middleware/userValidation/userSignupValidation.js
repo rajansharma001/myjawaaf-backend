@@ -1,14 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.signupValidation = void 0;
-const userSchema_ts_1 = require("../../model/userSchema.ts");
+const userSchema_1 = require("../../model/userSchema");
 const signupValidation = async (req, res, next) => {
     try {
         const { fullname, email, password, phone } = req.body;
         if (!fullname || !email || !password || !phone) {
             return res.status(401).json({ msg: "Please fill all the empty fields!" });
         }
-        const existingUser = await userSchema_ts_1.User.findOne({ email });
+        const existingUser = await userSchema_1.User.findOne({ email });
         if (existingUser) {
             return res.status(401).json({ msg: "User already registered." });
         }

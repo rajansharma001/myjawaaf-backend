@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signupController = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const userSchema_ts_1 = require("../../model/userSchema.ts");
-const sendEmailVerification_ts_1 = require("../../middleware/email/sendEmailVerification.ts");
+const userSchema_1 = require("../../model/userSchema");
+const sendEmailVerification_1 = require("../../middleware/email/sendEmailVerification");
 const signupController = async (req, res) => {
     try {
         const { fullname, email, password, phone } = req.body;
@@ -27,9 +27,9 @@ const signupController = async (req, res) => {
             email,
             phone,
         }, secret, { expiresIn: "1h" });
-        await userSchema_ts_1.User.create(newUser);
+        await userSchema_1.User.create(newUser);
         const link = `${process.env.CLIENT_URL}/api/auth/verify-email/${token}`;
-        await (0, sendEmailVerification_ts_1.sendEmailVerification)(email, link);
+        await (0, sendEmailVerification_1.sendEmailVerification)(email, link);
         return res.status(201).json({
             msg: `User created successflly. Please verifiy your account to login. Verification link is sent to ${email}`,
         });

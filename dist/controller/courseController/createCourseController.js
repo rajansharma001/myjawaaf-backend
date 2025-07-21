@@ -1,19 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createCourseController = void 0;
-const courseSchema_ts_1 = require("../../model/courseSchema.ts");
-const path_1 = __importDefault(require("path"));
+const courseSchema_1 = require("../../model/courseSchema");
 const createCourseController = async (req, res) => {
+    console.log("req body not getting in backend: ", req.body);
     try {
         const { title, slug, description, categoryId, isFree, price, discount, level, language, isPublished, } = req.body;
         const file = req.file;
-        console.log("is file receiving: ", req.file);
-        const thumbnailPath = file ? path_1.default.posix.join("uploads", file.filename) : "";
+        const thumbnailPath = file?.path || "";
         const currentUser = req.user;
-        console.log("current user: ", currentUser);
         if (currentUser.role === "admin" || currentUser.role === "teacher") {
             const newCourse = {
                 title,
@@ -29,7 +24,10 @@ const createCourseController = async (req, res) => {
                 isPublished,
                 createdBy: currentUser._id,
             };
-            const course = await courseSchema_ts_1.Course.create(newCourse);
+            console.log("thumbnail req file: ", req.file);
+            console.log("course from frontend: ", newCourse);
+            const course = await courseSchema_1.Course.create(newCourse);
+            console.log("course created: ", course);
             return res.status(201).json({ msg: "Course Created Success!", course });
         }
         else {
@@ -39,9 +37,11 @@ const createCourseController = async (req, res) => {
         }
     }
     catch (error) {
-        return res
-            .status(500)
-            .json({ msg: "Bad Request while creating a new course!" });
+        console.error("Error in createCourseController:", error); // <== add this line
+        return res.status(500).json({
+            msg: "Bad Request while creating a new course!",
+            error: error instanceof Error ? error.message : error,
+        });
     }
 };
 exports.createCourseController = createCourseController;

@@ -1,47 +1,46 @@
-# MyJawaaf – Backend (API)
+# 📚 MyJawaaf – Backend (API)
 
-The **MyJawaaf API** is the server-side component powering the MyJawaaf e-learning platform. Built with **Node.js**, **Express**, **TypeScript**, and **MongoDB**, it handles everything from user authentication to course management and enrollment workflows.
+The **MyJawaaf API** powers the e-learning platform with robust backend services including user authentication, course management, enrollments, and secure file handling. Built with **Node.js**, **TypeScript**, **Express**, and **MongoDB**.
 
 ---
 
 ## 🚀 Features
 
-### Authentication & Authorization
+### 🔐 Authentication & Authorization
 
-- 🔐 JWT-based authentication via HTTP-only cookies
-- 🔒 Role-based access control (Admin vs. Student)
-- Protected routes and middleware for secure operations
+- JWT-based authentication via HTTP-only cookies
+- Role-based access control (Admin / Student)
+- Protected routes and secure middleware
 
-### Courses & Categories
+### 📚 Courses & Categories
 
-- 📂 CRUD for course categories
-- 🎓 CRUD for courses with support for multiple lessons
-- 🖼 Image uploads for course thumbnails
+- CRUD operations for categories & courses
+- Multiple lesson support per course
+- Thumbnail/image upload support
 
-### User Features
+### 👥 User Features
 
-- ✅ User registration & login
-- 🧭 Enroll in free and paid courses
-  - Payment receipt upload and verification
-- 📋 Retrieve user-specific enrollments and course data
+- User registration and login
+- Enroll in free and paid courses
+- Upload and verify payment receipts
+- Access personal enrollments and progress
 
-### Miscellaneous
+### 🛠 Miscellaneous
 
-- 🔁 Search endpoints
-- 🌐 Multilingual support (via language tags)
-- 💬 Toast notifications via frontend integration
-- 📄 Detailed error handling and consistent API responses
+- Search endpoints
+- Multilingual tagging support
+- Consistent error handling and API responses
 
 ---
 
 ## 📦 Tech Stack
 
-- **Node.js** + **Express**
-- Written in **TypeScript**
-- **MongoDB** with Mongoose ODM
-- Secure authentication with **JSON Web Tokens**
-- File handling via **Multer**
-- Environment variable management with **dotenv**
+- Node.js + Express
+- TypeScript
+- MongoDB + Mongoose
+- Multer (for file uploads)
+- JSON Web Tokens (Auth)
+- dotenv for environment variables
 
 ---
 
@@ -49,67 +48,72 @@ The **MyJawaaf API** is the server-side component powering the MyJawaaf e-learni
 
 ```
 /src
-├── /controllers      # Route handlers
-├── /models           # Mongoose schemas
-├── /routes           # Express routers
-├── /middleware       # Auth, role checks, error handlers
-├── /uploads          # Uploaded images and receipts
-├── /config           # Config related (DB, JWT)
-└── server.ts         # Entry point
+├── controllers      # Route logic
+├── models           # Mongoose schemas
+├── routes           # API endpoints
+├── middleware       # Auth & error middleware
+├── config           # DB, JWT config, app entry
+│   └── app.ts       # App entry point
+├── uploads          # Image & receipt uploads
+└── server.ts        # (Optional server runner)
 ```
 
 ---
 
 ## ⚙️ Getting Started
 
-1. **Clone the repo**
+```bash
+# Clone the repository
+git clone https://github.com/rajansharma001/myjawaaf-backend.git
+cd myjawaaf-backend
 
-   ```bash
-   git clone https://github.com/rajansharma001/myjawaaf.git
-   cd myjawaaf
-   ```
+# Install dependencies
+npm install
+```
 
-2. **Install dependencies**
+### 🔐 Create `.env` file
 
-   ```bash
-   npm install
-   ```
+```env
+PORT=5000
+MONGO_URI=mongodb://localhost:27017/myjawaaf
+JWT_SECRET=your_jwt_secret
+UPLOAD_DIR=uploads/
+```
 
-3. **Create `.env` file**
+### 🚀 Start the server
 
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/myjawaaf
-   JWT_SECRET=your_jwt_secret_here
-   UPLOAD_DIR=uploads/
-   ```
-
-4. **Run the server**
-
-   ```bash
-   npm run build     # Compile TypeScript
-   npm start         # Run the compiled server
-   ```
-
-   Or for development:
-
-   ```bash
-   npm run dev       # Runs with ts-node-dev for live reload
-   ```
-
-5. **API Endpoints**
-   - `POST /auth/register` – Register a new user
-   - `POST /auth/login` – Login and set JWT cookie
-   - `GET /auth/me` – Retrieve current user
-   - `GET /categories`, `POST /categories`, `PUT /categories/:id`, `DELETE /categories/:id`
-   - `GET /courses`, `POST /courses`, `PUT /courses/:id`, `DELETE /courses/:id`
-   - `GET /courses/:id`, `POST /courses/:id/enroll`, `GET /users/:id/enrollments`
+```bash
+npm run build     # Compile TypeScript
+npm start         # Start production server
+npm run dev       # Dev mode with ts-node-dev
+```
 
 ---
 
-## 📋 Testing
+## 📡 API Endpoints (Sample)
 
-> _Coming soon:_ Integration tests, Postman collection, and CI pipeline
+### Auth
+
+- `POST /auth/register` – Register new user
+- `POST /auth/login` – Login & set JWT cookie
+- `GET /auth/me` – Get logged-in user
+
+### Categories & Courses
+
+- `GET/POST/PUT/DELETE /categories`
+- `GET/POST/PUT/DELETE /courses`
+- `GET /courses/:id` – Course details
+
+### Enrollments
+
+- `POST /courses/:id/enroll`
+- `GET /users/:id/enrollments`
+
+---
+
+## ✅ Testing
+
+🚧 _Integration tests and Postman collection coming soon._
 
 ---
 
@@ -117,17 +121,18 @@ The **MyJawaaf API** is the server-side component powering the MyJawaaf e-learni
 
 **Rajan Sharma**  
 Full Stack Developer  
-📬 [email.rajan001@gmail.com](mailto:email.rajan001@gmail.com)  
+📬 email.rajan001@gmail.com  
 🔗 [LinkedIn](https://www.linkedin.com/in/rajan-sharma-280764337/)
 
 ---
 
-## 🌟 Contributing
+## 🤝 Contributing
 
-Contributions, suggestions, and improvements are welcome! Please open an issue or submit a PR.
+Contributions, ideas, and feedback are welcome!  
+Please open an issue or submit a PR.
 
 ---
 
-## ⭐ If you find this useful...
+## ⭐ Star If You Like
 
-Please ⭐ **Star the repo**, share it with others, and feel free to provide feedback!
+If you found this project helpful, give it a ⭐ on GitHub and share it with others!

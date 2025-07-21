@@ -4,21 +4,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.upload = void 0;
+const cloudinary_1 = require("cloudinary");
+const multer_storage_cloudinary_1 = require("multer-storage-cloudinary");
 const multer_1 = __importDefault(require("multer"));
-const storage = multer_1.default.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "./uploads");
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+// Cloudinary Config
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+// Multer Storage with Cloudinary
+const storage = new multer_storage_cloudinary_1.CloudinaryStorage({
+    cloudinary: cloudinary_1.v2,
+    params: async (req, file) => {
+        const isImage = file.mimetype.startsWith("image");
+        return {
+            folder: "myjawaaf_uploads",
+            resource_type: "auto", // Automatically detect video or image
+            allowed_formats: ["jpg", "png", "jpeg", "mp4"],
+            ...(isImage && {
+                transformation: [{ width: 500, height: 500, crop: "limit" }],
+            }),
+        };
     },
 });
-// Validate file type and size (max 5MB)
-const fileFilter = (req, file, cb) => {
-    const allowedTypes = ["image/jpeg", "image/png", "video/mp4"];
-    if (!allowedTypes.includes(file.mimetype)) {
-        return cb(new Error("Only JPEG and PNG files are allowed."), false);
-    }
-    cb(null, true);
-};
-exports.upload = (0, multer_1.default)({ storage, fileFilter, limits: { fileSize: 5 * 1024 * 1024 } }); //5mb
+exports.upload = (0, multer_1.default)({ storage });

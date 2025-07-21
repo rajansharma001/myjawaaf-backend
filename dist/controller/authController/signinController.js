@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.signinController = void 0;
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const userSchema_ts_1 = require("../../model/userSchema.ts");
+const userSchema_1 = require("../../model/userSchema");
 const signinController = async (req, res) => {
     try {
         const { email, password } = req.body;
         console.log("input from frontend: ", req.body);
-        const existingUser = await userSchema_ts_1.User.findOne({ email });
+        const existingUser = await userSchema_1.User.findOne({ email });
         console.log("existing user: ", existingUser);
         if (!existingUser) {
             return res
@@ -40,8 +40,10 @@ const signinController = async (req, res) => {
         return res
             .cookie("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "lax",
+            secure: true, // for hosted
+            sameSite: "none", //for hosted
+            // secure: process.env.NODE_ENV === "production", //for local
+            // sameSite: "lax", //for local
             maxAge: 60 * 10 * 1000,
         })
             .status(200)
